@@ -1,4 +1,4 @@
 # Spirit move alone a curve
 
-![](move_alone_curve.png?raw=true)
-![](move.png | width=200)
+<img src="move.png" width=50% height=50%>
+<img src="move_alone_curve.png" width=50% height=50%>
