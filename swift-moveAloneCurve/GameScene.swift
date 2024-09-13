@@ -8,6 +8,37 @@
 import SpriteKit
 import GameplayKit
 
+
+/*
+extension SKNode
+{
+    func addGlow(radius:CGFloat=30)
+    {
+        let view = SKView()
+        let effectNode = SKEffectNode()
+        let texture = view.texture(from: self)
+        effectNode.shouldRasterize = true
+        effectNode.filter = CIFilter(name: "CIGaussianBlur",parameters: ["inputRadius":radius])
+        addChild(effectNode)
+        effectNode.addChild(SKSpriteNode(texture: texture))
+    }
+}
+ */
+
+extension SKSpriteNode {
+
+    func addGlow(radius: Float = 30) {
+        let effectNode = SKEffectNode()
+        effectNode.shouldRasterize = true
+        addChild(effectNode)
+        let effect = SKSpriteNode(texture: texture)
+        effect.color = .white
+        effect.colorBlendFactor = 1
+        effectNode.addChild(effect)
+        effectNode.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius":radius])
+    }
+}
+
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
@@ -113,7 +144,6 @@ class GameScene: SKScene {
         ciry.fillColor = UIColor.red
         self.addChild(ciry.getNode())
         
-        
         let cc0 = randomPtRect(topLeft: CGPoint(x:-w/2,y:h/2), width: w, height: h/2)
         let cc1 = randomPtRect(topLeft: CGPoint(x:-w/2,y:h/2), width: w, height: h/2)
 
@@ -124,7 +154,6 @@ class GameScene: SKScene {
         let cxx1 = Circle(position: cc1, radius: 15.0)
         cxx1.setColor(color:UIColor.red)
         self.addChild(cxx1.getNode())
-
         
         path.move(to:x0)
         path.addCurve(to:x1,
@@ -147,6 +176,78 @@ class GameScene: SKScene {
         return path
     }
     
+    func bossPath(e0:CGPoint, e1:CGPoint, width:CGFloat) -> UIBezierPath{
+        let w = self.size.width * frameMarginW
+        let h = self.size.height * frameMarginH
+        
+        let path = UIBezierPath()
+        // let (x0, x1) = randomTwoPts(dt: 400)
+        let x0 = randomPtRect(topLeft: CGPoint(x:-w/2,y:h/2), width: w, height: h/2)
+        let x1 = randomPtRect(topLeft: CGPoint(x:-w/2,y:h/2), width: w, height: h/2)
+
+        
+        let cirx = Circle(position: x0, radius: 15.0)
+        cirx.fillColor = UIColor.red
+        self.addChild(cirx.getNode())
+
+        
+        let ciry = Circle(position: x1, radius: 15.0)
+        ciry.fillColor = UIColor.green
+        self.addChild(ciry.getNode())
+
+        
+        let cc0 = randomPtRect(topLeft: CGPoint(x:-w/2,y:h/2), width: w, height: h/2)
+        let cc1 = randomPtRect(topLeft: CGPoint(x:-w/2,y:h/2), width: w, height: h/2)
+
+        path.move(to:x0)
+        path.addCurve(to:x1,
+                      controlPoint1: cc0,
+                      controlPoint2: cc1)
+
+        for _ in 0...10{
+            // var x2 = randomPt(x : -400...400, y:0...400)
+            let topLeftx = CGPoint(x:-w/2, y:h/2)
+            var x2 = randomPtRect(topLeft: topLeftx, width: w, height: h/2)
+            
+            var a0 = Circle(position: x2, radius: 15.0)
+            a0.setColor(color:UIColor.red)
+            self.addChild(a0.getNode())
+            
+            // var (cc2, cc3) = randomTwoPts(dt: 500)
+            var cc2 = randomPtRect(topLeft:topLeftx , width: w, height: h/2)
+            var cc3 = randomPtRect(topLeft: topLeftx, width: w, height: h/2)
+
+            var cx0 = Circle(position: cc2, radius: 10.0)
+            cx0.setColor(color:UIColor.gray)
+            self.addChild(cx0.getNode())
+            
+            var cx1 = Circle(position: cc3, radius: 10.0)
+            cx1.setColor(color:UIColor.darkGray)
+            self.addChild(cx1.getNode())
+            
+            path.addCurve(to:x2,
+                          controlPoint1:cc2,
+                          controlPoint2:cc3)
+        }
+        
+        /*
+        let (x2, x3) = randomTwoPts(dt: 900)
+        
+        let a0 = Circle(position: x2, radius: 20.0)
+        a0.setColor(color:UIColor.red)
+        self.addChild(a0.getNode())
+        
+        let a1 = Circle(position: x3, radius: 20.0)
+        a1.setColor(color:UIColor.yellow)
+        self.addChild(a1.getNode())
+        
+        path.addCurve(to:x0,
+                      controlPoint1: x2,
+                      controlPoint2: x3)
+        */
+        return path
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -160,17 +261,42 @@ class GameScene: SKScene {
 
         let e0 = CGPoint(x:0, y:h/2)
         let e1 = CGPoint(x:0, y:0)
-        let path = circlePath(e0:e0, e1:e1, width:gameSize.width)
+        // let path = circlePath(e0:e0, e1:e1, width:gameSize.width)
+        let path = bossPath(e0:e0, e1:e1, width:gameSize.width)
 
         let tran = CGAffineTransform.init(a:-1, b:0, c:0, d:1, tx:0, ty:0)
         
         // let path1 = UIBezierPath()
         // use the beizer path in an action
         // path.apply(tran)
-
-        let imgName =  "dropbomb4_x.png"
+        let circle0 = SKSpriteNode(imageNamed: "circle0.png")
+        circle0.size = CGSize(width: 30, height: 30)
+        circle0.position = e0
+        circle0.addGlow(radius: 30.0)
+        
+        // let imgName =  "dropbomb4_x.png"
+        let imgName = "spaceShips_008.png"
+        // let imgName = "plane4.png"
         let missle = SKSpriteNode(imageNamed: imgName)
-        missle.size = CGSize(width: 40, height: 40)
+        missle.size = CGSize(width: 30, height: 30)
+        
+        // Load the shader
+        
+        let g = SKShader(fileNamed: "GlowShader.fsh")
+        missle.shader = g
+        missle.blendMode = .add
+        missle.addGlow(radius: 1.0)
+        
+        /*
+        if let glowShader = SKShader(fileNamed: "GlowShader.fsh") {
+            missle.shader = glowShader
+            
+            // Optionally set the shader's uniforms
+            glowShader.uniforms = [
+                SKUniform(name: "color", vectorFloat4: vector_float4(1.0, 1.0, 1.0, 1.0))
+            ]
+        }
+         */
 
         let rmit = SKAction.removeFromParent()
         let follow = SKAction.follow(path.cgPath,
@@ -181,7 +307,9 @@ class GameScene: SKScene {
         // missle.run(SKAction.sequence([follow, rmit]))
         // missle.run(SKAction.repeatForever(follow))
         missle.run(SKAction.repeatForever(follow).reversed())
+        circle0.run(SKAction.repeatForever(follow).reversed())
         self.addChild(missle)
+        self.addChild(circle0)
     }
 
     /*

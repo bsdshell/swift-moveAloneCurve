@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004173902C7FB08400CC3B31 /* circle0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0041738F2C7FB08400CC3B31 /* circle0.png */; };
+		004173922C7FB19E00CC3B31 /* circle9.png in Resources */ = {isa = PBXBuildFile; fileRef = 004173912C7FB19E00CC3B31 /* circle9.png */; };
+		004173942C7FB46B00CC3B31 /* plane4.png in Resources */ = {isa = PBXBuildFile; fileRef = 004173932C7FB46B00CC3B31 /* plane4.png */; };
+		0041739A2C7FBDCA00CC3B31 /* GlowShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 004173992C7FBDCA00CC3B31 /* GlowShader.fsh */; };
+		0041739C2C7FEA1300CC3B31 /* spaceShips_008.png in Resources */ = {isa = PBXBuildFile; fileRef = 0041739B2C7FEA1300CC3B31 /* spaceShips_008.png */; };
 		00FC722A2C77B41E000158FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FC72292C77B41E000158FD /* AppDelegate.swift */; };
 		00FC722C2C77B41E000158FD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00FC722B2C77B41E000158FD /* GameScene.sks */; };
 		00FC722E2C77B41E000158FD /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 00FC722D2C77B41E000158FD /* Actions.sks */; };
@@ -40,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0041738F2C7FB08400CC3B31 /* circle0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle0.png; path = "../../swift-spaceinvader/gameimage/circle0.png"; sourceTree = "<group>"; };
+		004173912C7FB19E00CC3B31 /* circle9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle9.png; path = ../../../../try/circle9.png; sourceTree = "<group>"; };
+		004173932C7FB46B00CC3B31 /* plane4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plane4.png; path = "../../swift-spaceinvader/gameimage/plane4.png"; sourceTree = "<group>"; };
+		004173992C7FBDCA00CC3B31 /* GlowShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = GlowShader.fsh; path = ../../../../try/GlowShader.fsh; sourceTree = "<group>"; };
+		0041739B2C7FEA1300CC3B31 /* spaceShips_008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spaceShips_008.png; path = ../../../../try/spaceShips_008.png; sourceTree = "<group>"; };
 		00FC72262C77B41E000158FD /* swift-moveAloneCurve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-moveAloneCurve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00FC72292C77B41E000158FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00FC722B2C77B41E000158FD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -106,6 +116,11 @@
 		00FC72282C77B41E000158FD /* swift-moveAloneCurve */ = {
 			isa = PBXGroup;
 			children = (
+				0041739B2C7FEA1300CC3B31 /* spaceShips_008.png */,
+				004173992C7FBDCA00CC3B31 /* GlowShader.fsh */,
+				004173932C7FB46B00CC3B31 /* plane4.png */,
+				004173912C7FB19E00CC3B31 /* circle9.png */,
+				0041738F2C7FB08400CC3B31 /* circle0.png */,
 				00FC725E2C77B777000158FD /* dropbomb4_x.png */,
 				00FC725C2C77B581000158FD /* swiftlib.swift */,
 				00FC72292C77B41E000158FD /* AppDelegate.swift */,
@@ -242,11 +257,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				00FC722C2C77B41E000158FD /* GameScene.sks in Resources */,
+				0041739A2C7FBDCA00CC3B31 /* GlowShader.fsh in Resources */,
+				004173922C7FB19E00CC3B31 /* circle9.png in Resources */,
+				004173902C7FB08400CC3B31 /* circle0.png in Resources */,
 				00FC72352C77B41E000158FD /* Base in Resources */,
 				00FC72372C77B420000158FD /* Assets.xcassets in Resources */,
 				00FC722E2C77B41E000158FD /* Actions.sks in Resources */,
 				00FC725F2C77B777000158FD /* dropbomb4_x.png in Resources */,
+				004173942C7FB46B00CC3B31 /* plane4.png in Resources */,
 				00FC723A2C77B420000158FD /* Base in Resources */,
+				0041739C2C7FEA1300CC3B31 /* spaceShips_008.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
