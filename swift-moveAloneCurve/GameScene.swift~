@@ -201,25 +201,7 @@ class GameScene: SKScene {
         return CGVector(dx:vec1[0], dy:vec1[1])
     }
 
-    func randomImg(imgNames:[String]) -> String{
-        let inx = Int.random(in:0...(imgNames.count - 1))
-        return imgNames[inx]
-    }
-    
-    func createShootNodeAngXAxis(pos:CGPoint, ang:CGFloat, imgNames: [String]) -> SKNode{
-        let vec = CGVector(dx:pos.x + 1.0, dy:pos.y)
-        let v0 = rotMatCW(ang:ang, vec:vec)
-        print("ang => \(ang) v0 => \(v0)")
-        return createShootNodeVec(pos:pos, vector:v0, imgNames:imgNames)
-    }
-    
-    func createShootNodePt(pos:CGPoint, pt:CGPoint, imgNames: [String]) -> SKNode{
-        let v0 = vec(pt0:pos, pt1:pt)
-        return createShootNodeVec(pos:pos, vector:v0, imgNames:imgNames)
-    }
-    
-    func createShootNodeVec(pos:CGPoint, vector:CGVector, imgNames:[String]) -> SKNode{
-        let imgName = randomImg(imgNames:imgNames)
+    func createShootNodeX(pos:CGPoint, vector:CGVector, imgName : String) -> SKNode{
         let bulletNode = SKSpriteNode(imageNamed: imgName)
         bulletNode.size = CGSize(width:40, height:40)
         bulletNode.position = pos
@@ -236,19 +218,18 @@ class GameScene: SKScene {
         let p1 = pos
         let p2 = pos + CGPoint(x:pos.x, y:pos.y + 1.0)
         let angle = cosVex3(pt0:p0, pt1:p1, pt2:p2)
-        var distLen = 1000.0
+        var distLen = 0.0
+        
         let dx = dot2(v0:vector, v1:CGVector(dx:0, dy:1.0))
-        /*
+        // 
         if dx == 0.0{
-            distLen = p0.x > 0 ? abs(frame.width/2 - p1.x) : abs(-frame.width/2 - p1.x)
+            distLen = abs(frame.width/2 - p1.x)
         }else{
-            distLen = abs((frame.width/2 - p1.x)/cos(angle))
+            distLen = abs((frame.height/2 - pos.y)/cos(angle))
         }
-        */
 
         let shoot = SKAction.move(to:pos + distLen*vr, duration:duraFall)
         print("angle => \(angle)")
-        print("dx =>    \(dx)")
         print("distLen => \(distLen)")
         print("distLen * vr => \(distLen * vr)")
         print("frame => \(frame)")
@@ -349,7 +330,7 @@ class GameScene: SKScene {
         */
         return path
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -434,43 +415,16 @@ class GameScene: SKScene {
         let p3 = CGPoint(x:1.0,  y:0.0)
         let p4 = CGPoint(x:-1.0, y:0.0)
         let p5 = CGPoint(x:0.0,  y:-1.0)
-
-        // func randomPtRect(topLeft:CGPoint, width:CGFloat, height:CGFloat) -> CGPoint{
-        let ls = randomPtRectList(topLeft:CGPoint(x:-100, y:500), width:400, height:800, count:5)
         
-        // for pt in [p0, p1, p2, p3, p4, p5]{
-        // for ang in [0.0, CGFloat.pi/4, CGFloat.pi/2, CGFloat.pi*3/4, CGFloat.pi]{
-        // for pt in [CGPoint(x:1, y:0), CGPoint(x:0, y:1), CGPoint(x:1, y:1)]{
-        for pt in ls {
-            // let vec0 = vec(pt0:pos, pt1:pos + pt)
-            // let node = createShootNodeVec(pos:pos, vector:vec0, imgName : "bullet1.png")
-            let node = createShootNodePt(pos:pos, pt:pt, imgNames : ["bullet1.png"])
+        for pt in [p0, p1, p2, p3, p4, p5]{
+            let vec0 = vec(pt0:pos, pt1:pos + pt)
+            let node = createShootNodeX(pos:pos, vector:vec0, imgName : "bullet1.png")
             let name = "b" + String(bulletCount)
             node.name = name
             self.bulletSet.insert(node.name!)
             self.bulletCount += 1
             self.addChild(node)
         }
-
-
-        var yourline = SKShapeNode()
-        var pathToDraw = CGMutablePath()
-        pathToDraw.move(to: CGPoint(x:0.0, y:0.0))
-        pathToDraw.addLine(to: CGPoint(x:100.0, y:100.0))
-        yourline.path = pathToDraw
-        yourline.strokeColor = SKColor.red
-
-        let rotL = SKAction.rotate(byAngle: 2*CGFloat.pi, duration: 10.0)
-        let rmL  = SKAction.removeFromParent()
-        yourline.run(SKAction.sequence([rotL]))
-        yourline.zPosition = 1
-        addChild(yourline)
-
-
-        let cir = Circle(position:pos, radius:(2*100.0 * 100.0).squareRoot())
-        cir.draw()
-        addChild(cir.getNode())
-        
     }
 
     /*
