@@ -60,6 +60,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         // Get label node from scene and store it for use later
+        /*
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
             label.alpha = 0.0
@@ -78,6 +79,7 @@ class GameScene: SKScene {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        */
     }
 
     
@@ -223,8 +225,8 @@ class GameScene: SKScene {
         let bulletNode = SKSpriteNode(imageNamed: imgName)
         bulletNode.size = CGSize(width:40, height:40)
         bulletNode.position = pos
-        let duraFall = 4.4
-        let waitTime = 4.4
+        let duraFall = 20.4
+        let waitTime = 20.4
         let pt1 = CGPointMake(pos.x, bulletHeight)
         let v0 = vec(pt0: pos, pt1: CGPoint(x:pos.x + 1, y:pos.y))
         let vr = normalize(vec:vector)
@@ -234,7 +236,7 @@ class GameScene: SKScene {
 
         let p0 = pos + vector
         let p1 = pos
-        let p2 = pos + CGPoint(x:pos.x, y:pos.y + 1.0)
+        let p2 = CGPoint(x:pos.x, y:pos.y + 1.0)
         let angle = cosVex3(pt0:p0, pt1:p1, pt2:p2)
         var distLen = 1000.0
         let dx = dot2(v0:vector, v1:CGVector(dx:0, dy:1.0))
@@ -369,9 +371,7 @@ class GameScene: SKScene {
         path.addCurve(to:e1,
                       controlPoint1: e0,
                       controlPoint2: e1)
-
         
-
         let tran = CGAffineTransform.init(a:-1, b:0, c:0, d:1, tx:0, ty:0)
         
         // let path1 = UIBezierPath()
@@ -389,9 +389,9 @@ class GameScene: SKScene {
         let missle = SKSpriteNode(imageNamed: imgName)
         missle.size = CGSize(width: 80, height: 80)
         missle.name = "rot"
-        let rot = SKAction.rotate(byAngle: 3.14, duration: 20.0)
-        let rmIt = SKAction.removeFromParent()
-        missle.run(SKAction.sequence([rot]))
+        // let rot = SKAction.rotate(byAngle: 3.14, duration: 20.0)
+        // let rmIt = SKAction.removeFromParent()
+        // missle.run(SKAction.sequence([rot]))
         
         // Load the shader
         
@@ -420,13 +420,12 @@ class GameScene: SKScene {
         // missle.run(SKAction.sequence([follow, rmit]))
         // missle.run(SKAction.repeatForever(follow))
         // missle.run(SKAction.repeatForever(follow).reversed())
-        circle0.run(SKAction.repeatForever(follow).reversed())
+        // circle0.run(SKAction.repeatForever(follow).reversed())
         self.addChild(missle)
-        self.addChild(circle0)
+        // self.addChild(circle0)
 
-        let pos = CGPoint(x:0, y:0)
+        let pos = CGPoint(x:100, y:100)
         let ang = 0.0 // CGFloat.pi/2
-
 
         let p0 = CGPoint(x:1.0,  y:1.0)
         let p1 = CGPoint(x:0.0,  y:1.0)
@@ -452,7 +451,7 @@ class GameScene: SKScene {
             self.addChild(node)
         }
 
-
+        /*
         var yourline = SKShapeNode()
         var pathToDraw = CGMutablePath()
         pathToDraw.move(to: CGPoint(x:0.0, y:0.0))
@@ -466,10 +465,10 @@ class GameScene: SKScene {
         yourline.zPosition = 1
         addChild(yourline)
 
-
         let cir = Circle(position:pos, radius:(2*100.0 * 100.0).squareRoot())
         cir.draw()
         addChild(cir.getNode())
+        */
         
     }
 
@@ -647,17 +646,43 @@ class GameScene: SKScene {
             let diff = currentTime - initTime0
             if diff > 0.0 && self.rotFlag {
                 if let missleNode = self.childNode(withName : "rot"){
+                    
                     let randDir = CGFloat( Int.random(in:0...1) == 0 ? -1 : 1 )
                     let randAngle = CGFloat.random(in : 4*CGFloat.pi...10*CGFloat.pi)
                     let rot = SKAction.rotate(byAngle: randAngle * randDir, duration: 10.0)
+                    
                     let rmIt = SKAction.removeFromParent()
                     self.rotFlag = false
-                    let closure = {
+
+                    let closureX = {
+                        print("closureX")
                         self.rotFlag = true
                     }
                     
-                    let e0 = CGPoint(x:0, y:0)
-                    let e1 = CGPoint(x:0, y:500)
+                    let closure = {
+                        print("closure")
+                        self.rotFlag = false
+                        
+                        missleNode.run(SKAction.sequence([rot]), completion:closureX)
+                        let ls = randomPtRectList(topLeft:CGPoint(x:-100, y:500), width:400, height:800, count:5)
+                        let imgList = ["bullet1.png", "bullet3.png", "bullet4.png"]
+                        let ranInx = Int.random(in:0...(imgList.count - 1))
+                        for pt in ls {
+                            // let vec0 = vec(pt0:pos, pt1:pos + pt)
+                            // let node = createShootNodeVec(pos:pos, vector:vec0, imgName : "bullet1.png")
+                            if let missleNode = self.childNode(withName : "rot"){
+                                let node = self.createShootNodePt(pos:missleNode.position, pt:pt, imgNames : [imgList[ranInx]])
+                                let name = "b" + String(self.bulletCount)
+                                node.name = name
+                                self.bulletSet.insert(node.name!)
+                                self.bulletCount += 1
+                                self.addChild(node)
+                            }
+                        }
+                    }
+
+                    let e0 = CGPoint(x:0, y:500)
+                    let e1 = CGPoint(x:0, y:0)
                     let c0 = CGPoint(x:100, y:100)
                     let c1 = CGPoint(x:10, y:-200)
                     let pathx = UIBezierPath()
@@ -670,7 +695,10 @@ class GameScene: SKScene {
                                                  asOffset: false,
                                                  orientToPath: false,
                                                  speed: 200.0)
-                    missleNode.run(SKAction.group([follow, rot]), completion:closure)
+                    // missleNode.run(SKAction.group([follow, rot]), completion:closure)
+                    missleNode.run(SKAction.sequence([follow]), completion:closure)
+                    
+                    
                     // self.addChild(missleNode)
                     
                     // missleNode.run(SKAction.sequence([rot]), completion:closure)
@@ -678,5 +706,36 @@ class GameScene: SKScene {
                 initTime0 = currentTime
             }
         }
+
+        /*
+        if initTime1 < 0.0{
+            initTime1 = currentTime
+        }else{
+            let diff = currentTime - initTime1
+            if diff > 1.0 {
+                let ls = randomPtRectList(topLeft:CGPoint(x:-100, y:500), width:400, height:800, count:5)
+                
+                // for pt in [p0, p1, p2, p3, p4, p5]{
+                // for ang in [0.0, CGFloat.pi/4, CGFloat.pi/2, CGFloat.pi*3/4, CGFloat.pi]{
+                // for pt in [CGPoint(x:1, y:0), CGPoint(x:0, y:1), CGPoint(x:1, y:1)]{
+                for pt in ls {
+                    // let vec0 = vec(pt0:pos, pt1:pos + pt)
+                    // let node = createShootNodeVec(pos:pos, vector:vec0, imgName : "bullet1.png")
+                    if let missleNode = self.childNode(withName : "rot"){
+                        let node = createShootNodePt(pos:missleNode.position, pt:pt, imgNames : ["bullet1.png"])
+                        let name = "b" + String(bulletCount)
+                        node.name = name
+                        self.bulletSet.insert(node.name!)
+                        self.bulletCount += 1
+                        self.addChild(node)
+                    }
+                }
+                initTime1 = currentTime
+            }
+        }
+        */
+        
+
+
     }
 }
