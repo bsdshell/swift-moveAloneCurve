@@ -15,6 +15,7 @@
 		0074E29A2C95111200888A89 /* rot0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0074E2992C95111200888A89 /* rot0.png */; };
 		0074E29C2C9511E200888A89 /* boss2_x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0074E29B2C9511E200888A89 /* boss2_x.png */; };
 		0074E29E2C9556E300888A89 /* bullet1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0074E29D2C9556E300888A89 /* bullet1.png */; };
+		00B419812C9B64F50038FF91 /* many_rock_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B419802C9B64F50038FF91 /* many_rock_0.png */; };
 		00F3E68B2C9A43DB0040795E /* bullet4.png in Resources */ = {isa = PBXBuildFile; fileRef = 00F3E6892C9A43DB0040795E /* bullet4.png */; };
 		00F3E68C2C9A43DB0040795E /* bullet3.png in Resources */ = {isa = PBXBuildFile; fileRef = 00F3E68A2C9A43DB0040795E /* bullet3.png */; };
 		00FC722A2C77B41E000158FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FC72292C77B41E000158FD /* AppDelegate.swift */; };
@@ -58,6 +59,7 @@
 		0074E2992C95111200888A89 /* rot0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rot0.png; path = ../../../../try/rot0.png; sourceTree = "<group>"; };
 		0074E29B2C9511E200888A89 /* boss2_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boss2_x.png; path = ../../../../try/boss2_x.png; sourceTree = "<group>"; };
 		0074E29D2C9556E300888A89 /* bullet1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet1.png; path = ../../../../try/bullet1.png; sourceTree = "<group>"; };
+		00B419802C9B64F50038FF91 /* many_rock_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = many_rock_0.png; path = ../../../../try/many_rock_0.png; sourceTree = "<group>"; };
 		00F3E6892C9A43DB0040795E /* bullet4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet4.png; path = ../../../../try/bullet4.png; sourceTree = "<group>"; };
 		00F3E68A2C9A43DB0040795E /* bullet3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet3.png; path = ../../../../try/bullet3.png; sourceTree = "<group>"; };
 		00FC72262C77B41E000158FD /* swift-moveAloneCurve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-moveAloneCurve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 		00FC72282C77B41E000158FD /* swift-moveAloneCurve */ = {
 			isa = PBXGroup;
 			children = (
+				00B419802C9B64F50038FF91 /* many_rock_0.png */,
 				00F3E68A2C9A43DB0040795E /* bullet3.png */,
 				00F3E6892C9A43DB0040795E /* bullet4.png */,
 				0074E29D2C9556E300888A89 /* bullet1.png */,
@@ -281,6 +284,7 @@
 				00FC72352C77B41E000158FD /* Base in Resources */,
 				00FC72372C77B420000158FD /* Assets.xcassets in Resources */,
 				00F3E68C2C9A43DB0040795E /* bullet3.png in Resources */,
+				00B419812C9B64F50038FF91 /* many_rock_0.png in Resources */,
 				00FC722E2C77B41E000158FD /* Actions.sks in Resources */,
 				00FC725F2C77B777000158FD /* dropbomb4_x.png in Resources */,
 				0074E29A2C95111200888A89 /* rot0.png in Resources */,

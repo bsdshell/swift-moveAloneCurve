@@ -451,6 +451,13 @@ class GameScene: SKScene {
             self.addChild(node)
         }
 
+
+        let many_rock_0 = SKSpriteNode(imageNamed: "many_rock_0.png")
+        many_rock_0.size = CGSize(width: 200, height: 800)
+        many_rock_0.position = CGPoint(x:200, y:0)
+        self.addChild(many_rock_0)
+        
+
         /*
         var yourline = SKShapeNode()
         var pathToDraw = CGMutablePath()
@@ -469,6 +476,8 @@ class GameScene: SKScene {
         cir.draw()
         addChild(cir.getNode())
         */
+
+
         
     }
 
